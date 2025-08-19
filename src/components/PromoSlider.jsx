@@ -52,7 +52,6 @@ const PromoSlider = () => {
                 src={slide.image}
                 alt={slide.title}
                 className="object-cover w-full h-full"
-                  loading="lazy"
 
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 md:px-20 bg-black/40">
