@@ -48,6 +48,7 @@ export default function Login() {
               <input
                 type="email"
                 value={email}
+                defaultValue={"user@example@gmail.com"}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="البريد الإلكتروني"
                 className="w-full h-10 bg-[#f2f3f6] text-black rounded-lg px-3 text-sm placeholder-gray-500"
@@ -56,6 +57,7 @@ export default function Login() {
               <input
                 type="password"
                 value={password}
+                defaultValue={"123456"}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="كلمة المرور"
                 className="w-full h-10 bg-[#f2f3f6] text-black rounded-lg px-3 text-sm placeholder-gray-500"

@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  items: [], // كل عنصر: {id, title, price, quantity, image}
+// 🛒 استرجاع من localStorage إذا موجود
+const savedCart = JSON.parse(localStorage.getItem("cartState"));
+
+const initialState = savedCart || {
+  items: [], 
   totalQuantity: 0,
   totalPrice: 0,
 };
@@ -42,7 +45,6 @@ const cartSlice = createSlice({
         state.totalQuantity--;
         state.totalPrice -= item.price;
       } else if (item && item.quantity === 1) {
-        // إذا الكمية وصلت 1 وطلبت تقليل، نحذف المنتج من السلة
         state.items = state.items.filter(i => i.id !== id);
         state.totalQuantity--;
         state.totalPrice -= item.price;
@@ -64,11 +66,17 @@ const cartSlice = createSlice({
       state.totalQuantity = 0;
       state.totalPrice = 0;
     },
-    removeItem: (state, action) => {
-      state.items = state.items.filter((i) => i.id !== action.payload);
+
+    removeItem(state, action) {
+      state.items = state.items.filter(i => i.id !== action.payload);
     },
   },
 });
 
-export const { addToCart, incrementQuantity, decrementQuantity, removeFromCart, clearCart , removeItem } = cartSlice.actions;
-export default cartSlice.reducer;
+export const { addToCart, incrementQuantity, decrementQuantity, removeFromCart, clearCart, removeItem } = cartSlice.actions;
+
+export default (state, action) => {
+  const newState = cartSlice.reducer(state, action);
+  localStorage.setItem("cartState", JSON.stringify(newState));
+  return newState;
+};

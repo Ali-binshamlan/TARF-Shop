@@ -15,12 +15,12 @@ const FooterSection = () => {
               <FaApple size={20} />
               <span className="text-sm">App Store</span>
             </button>
-            <Link href="https://play.google.com/store/apps/details?id=com.app.store_app&hl=ar" target="_blank" rel="noopener noreferrer">
+            <a href="https://play.google.com/store/apps/details?id=com.app.store_app&hl=ar&pli=1" target="_blank" rel="noopener noreferrer">
               <button className="w-[160px] h-[42px] bg-green-600 text-white flex items-center justify-center gap-2 rounded cursor-pointer">
                 <FaGooglePlay size={20} />
                 <span className="text-sm">Google Play</span>
               </button>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

@@ -8,7 +8,9 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   const { user, logout } = useAuth();  // جلب بيانات المستخدم من السياق
-  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
+const totalQuantity = useSelector((state) =>
+  state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+);
   const totalPrice = useSelector((state) =>
     state.cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   );

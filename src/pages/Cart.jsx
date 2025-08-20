@@ -47,7 +47,7 @@ export default function CartPage() {
 
           <div className="w-full flex justify-between text-gray-600 font-[DIN_Next_LT_Arabic] mb-4">
             <span>السعر الإجمالي:</span>
-            <span>{totalPrice} ر.س</span>
+            <span>{(totalPrice).toFixed(2)} ر.س</span>
           </div>
 
           <button
@@ -60,67 +60,70 @@ export default function CartPage() {
 
         {/* قائمة المنتجات */}
         <div dir="rtl" className="flex-1 flex flex-col gap-4 w-full">
-          {cart.map((item, index) => (
-            <div
-              key={item.id || index}
-              className="w-full p-4 bg-white rounded border border-gray-200 flex flex-col md:flex-row md:items-center gap-4 relative"
-            >
-              {/* صورة المنتج */}
-              <div className="flex-shrink-0">
-                <img
-                  className="w-full md:w-[95px] md:h-20 rounded border border-gray-200 object-cover"
-                  src={item.image || "https://placehold.co/95x80"}
-                  alt={item.title}
-                  loading="lazy"
-                />
-              </div>
+  {cart.map((item, index) => (
+    <div
+      key={item.id || index}
+      className="w-full p-4 bg-white rounded-2xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center gap-4 relative transition hover:shadow-md"
+    >
+      {/* صورة المنتج */}
+      <div className="flex-shrink-0">
+        <img
+          className="w-16 h-16 md:w-[95px] md:h-20 rounded-xl border border-gray-200 object-cover shadow-sm"
+          src={item.image || "https://placehold.co/95x80"}
+          alt={item.title}
+          loading="lazy"
+        />
+      </div>
 
-              {/* اسم المنتج والتفاصيل */}
-              <div className="flex-1 flex flex-col items-end gap-1 text-right">
-                <div className="text-gray-800 text-base font-medium font-[DIN_Next_LT_Arabic]">
-                  {item.title}
-                </div>
-                <div className="text-gray-500 text-sm font-[DIN_Next_LT_Arabic]">
-                  السعر: {item.price} ر.س
-                </div>
-              </div>
-
-              {/* التحكم بالكمية */}
-              <div className="flex justify-between items-center gap-4 border rounded px-3 py-2 w-full md:w-auto">
-                <button
-                  onClick={() => dispatch(decrementQuantity(item.id))}
-                  disabled={item.quantity <= 1}
-                  className="cursor-pointer text-gray-400 text-xl font-bold font-[DIN_Next_LT_Arabic]"
-                >
-                  -
-                </button>
-
-                <div className="text-gray-600 text-base font-[DIN_Next_LT_Arabic]">{item.quantity}</div>
-
-                <button
-                  onClick={() => dispatch(incrementQuantity(item.id))}
-                  className="cursor-pointer text-gray-400 text-xl font-bold font-[DIN_Next_LT_Arabic]"
-                >
-                  +
-                </button>
-              </div>
-
-              {/* السعر الإجمالي للمنتج */}
-              <div className="text-gray-800 text-lg font-medium font-[DIN_Next_LT_Arabic] whitespace-nowrap">
-                {item.price * item.quantity} ر.س
-              </div>
-
-              {/* زر الحذف */}
-              <button
-                onClick={() => dispatch(removeItem(item.id))}
-                className="bg-gray-50 rounded-full p-1 shadow-md text-red-500 hover:text-red-700 self-end md:self-auto"
-                aria-label={`حذف ${item.title}`}
-              >
-                <AiOutlineClose size={18} />
-              </button>
-            </div>
-          ))}
+      {/* اسم المنتج والتفاصيل */}
+      <div className="flex-1 flex flex-col items-end gap-1 text-right">
+        <div className="text-gray-800 text-base font-medium font-[DIN_Next_LT_Arabic] leading-snug">
+          {item.title}
         </div>
+        <div className="text-gray-500 text-sm font-[DIN_Next_LT_Arabic]">
+          السعر: {(item.price).toFixed(2)} ر.س
+        </div>
+      </div>
+
+      {/* التحكم بالكمية */}
+      <div className="flex justify-between items-center gap-4 border rounded-lg px-3 py-1.5 w-full md:w-auto bg-gray-50">
+        <button
+          onClick={() => dispatch(decrementQuantity(item.id))}
+          disabled={item.quantity <= 1}
+          className="cursor-pointer text-gray-400 text-lg font-bold font-[DIN_Next_LT_Arabic] hover:text-red-500 disabled:opacity-50"
+        >
+          -
+        </button>
+
+        <div className="text-gray-700 text-base font-[DIN_Next_LT_Arabic] font-semibold">
+          {item.quantity}
+        </div>
+
+        <button
+          onClick={() => dispatch(incrementQuantity(item.id))}
+          className="cursor-pointer text-gray-400 text-lg font-bold font-[DIN_Next_LT_Arabic] hover:text-green-500"
+        >
+          +
+        </button>
+      </div>
+
+      {/* السعر الإجمالي للمنتج */}
+      <div className="text-gray-900 text-lg font-semibold font-[DIN_Next_LT_Arabic] whitespace-nowrap">
+        {(item.price * item.quantity ).toFixed(2)} ر.س
+      </div>
+
+      {/* زر الحذف */}
+      <button
+        onClick={() => dispatch(removeItem(item.id))}
+        className="bg-white border border-gray-200 rounded-full p-2 shadow-sm text-red-500 hover:bg-red-50 hover:text-red-600 transition self-end md:self-auto"
+        aria-label={`حذف ${item.title}`}
+      >
+        <AiOutlineClose size={18} />
+      </button>
+    </div>
+  ))}
+</div>
+
       </div>
 
       {/* مودال الدفع */}
