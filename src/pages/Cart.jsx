@@ -7,6 +7,7 @@ import FooterSection from "../components/FooterSection";
 export default function CartPage() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.items);
+  
 
   const totalPrice = cart?.reduce((sum, item) => sum + item.price * item.quantity, 0) || 0;
   const totalItems = cart?.reduce((sum, item) => sum + item.quantity, 0) || 0;

@@ -20,11 +20,11 @@ export default function Header() {
         <div className="max-w-screen-xl mx-auto px-4 py-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
           {/* الروابط */}
           <div className="flex flex-wrap items-center gap-2 text-gray-400">
-            <Link href="/contact" className="hover:text-gray-600">تواصل معنا</Link>
+            <Link to="/contact" className="hover:text-gray-600">تواصل معنا</Link>
             <span className="hidden md:inline w-2.5 h-px bg-gray-200 rotate-90" />
-            <Link href="/returns-policy" className="hover:text-gray-600">سياسة الإستبدال أو الاسترجاع</Link>
+            <Link to="/returns-policy" className="hover:text-gray-600">سياسة الإستبدال أو الاسترجاع</Link>
             <span className="hidden md:inline w-2.5 h-px bg-gray-200 rotate-90" />
-            <Link href="/favorites" className="hover:text-gray-600">المفضلة</Link>
+            <Link to="/favorites" className="hover:text-gray-600">المفضلة</Link>
             <span className="hidden md:inline w-2.5 h-px bg-gray-200 rotate-90" />
             <span>العربية - رس</span>
           </div>
