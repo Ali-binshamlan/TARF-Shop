@@ -59,7 +59,7 @@ export default function CartPage() {
         </div>
 
         {/* قائمة المنتجات */}
-        <div className="flex-1 flex flex-col gap-4 w-full">
+        <div dir="rtl" className="flex-1 flex flex-col gap-4 w-full">
           {cart.map((item, index) => (
             <div
               key={item.id || index}
