@@ -4,6 +4,10 @@ import { AiOutlineClose } from "react-icons/ai";
 import Header from "../components/Header";
 import FooterSection from "../components/FooterSection";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FaCcVisa, FaCcMastercard } from "react-icons/fa";
+
 
 export default function CartPage() {
   const dispatch = useDispatch();
@@ -127,64 +131,100 @@ export default function CartPage() {
       </div>
 
       {/* مودال الدفع */}
-      {openModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
-            <h2 className="text-xl font-bold mb-4 text-right font-[DIN_Next_LT_Arabic]">
-              اختر طريقة الدفع
-            </h2>
+     {openModal && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-slideIn">
+      <h2 className="text-2xl font-bold mb-6 text-right font-[DIN_Next_LT_Arabic]">
+        اختر طريقة الدفع
+      </h2>
 
-            {/* الدفع بالبطاقة */}
-            <div className="flex flex-col gap-3 text-right">
-              <span className="font-medium font-[DIN_Next_LT_Arabic]">الدفع عبر البطاقة</span>
-              <input
-                type="text"
-                placeholder="رقم البطاقة"
-                className="w-full p-2 border rounded"
-              />
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="MM/YY"
-                  className="flex-1 p-2 border rounded"
-                />
-                <input
-                  type="text"
-                  placeholder="CVV"
-                  className="flex-1 p-2 border rounded"
-                />
-              </div>
-              <button
-                className="w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
-                onClick={() => {
-                  alert("تم الدفع بنجاح!");
-                  setOpenModal(false);
-                }}
-              >
-                دفع البطاقة
-              </button>
+      <div className="flex flex-col gap-4 text-right">
+        <span className="font-medium font-[DIN_Next_LT_Arabic]">الدفع عبر البطاقة</span>
 
-              <span className="font-medium mt-4 font-[DIN_Next_LT_Arabic]">أو الدفع عند الاستلام</span>
-              <button
-                className="w-full py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
-                onClick={() => {
-                  alert("تم اختيار الدفع عند الاستلام");
-                  setOpenModal(false);
-                }}
-              >
-                الدفع عند الاستلام
-              </button>
-
-              <button
-                className="w-full py-2 text-gray-600 rounded hover:bg-gray-200 transition mt-2"
-                onClick={() => setOpenModal(false)}
-              >
-                إلغاء
-              </button>
-            </div>
+        <div className="flex">
+           <div className="flex gap-2 mb-4 justify-end text-5xl text-gray-700">
+            <FaCcVisa className="text-blue-600" />
+            <FaCcMastercard className="text-red-600" />
           </div>
+
         </div>
-      )}
+
+        <input
+          type="text"
+          placeholder="رقم البطاقة"
+          id="cardNumber"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder="MM/YY"
+            id="expiry"
+            className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="text"
+            placeholder="CVV"
+            id="cvv"
+            className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <button
+          className="w-full py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold shadow-md"
+          onClick={() => {
+            const cardNumber = document.getElementById("cardNumber").value;
+            const expiry = document.getElementById("expiry").value;
+            const cvv = document.getElementById("cvv").value;
+
+            if (!cardNumber || !expiry || !cvv) {
+              toast.error("الرجاء تعبئة جميع الحقول!");
+              return;
+            }
+
+            toast.success("تم الدفع بنجاح!");
+            setOpenModal(false);
+          }}
+        >
+          دفع البطاقة
+        </button>
+
+        <span className="font-medium mt-4 font-[DIN_Next_LT_Arabic]">أو الدفع عند الاستلام</span>
+        <button
+          className="w-full py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition font-semibold shadow-md"
+          onClick={() => {
+            toast.info("تم اختيار الدفع عند الاستلام");
+            setOpenModal(false);
+          }}
+        >
+          الدفع عند الاستلام
+        </button>
+
+        <button
+          className="w-full py-3 text-gray-600 rounded-lg hover:bg-gray-200 transition font-semibold mt-2"
+          onClick={() => setOpenModal(false)}
+        >
+          إلغاء
+        </button>
+      </div>
+
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </div>
+  </div>
+)}
+
 
       <FooterSection />
     </div>
